@@ -11,9 +11,9 @@ repositories {
 
 sourceSets {
     main {
-        resources {
-            srcDir 'main/res'
-        }
+//        resources {
+//            srcDir 'main/res'
+//        }
     }
 }
 
