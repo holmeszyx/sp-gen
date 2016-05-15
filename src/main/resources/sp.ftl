@@ -1,4 +1,3 @@
-
 package ${schema.spPackage};
 
 import android.content.Context;
@@ -11,12 +10,15 @@ import java.util.Set;
 </#if>
 
 /**
- * ${rule.clssName}
+ * <#if rule.comment??>${rule.comment}<#else>${rule.clssName}</#if>
+ * Auto created by SpGenerator.
  */
 public class ${rule.clssName} {
 
+    public static final int VERSION = ${schema.version};
+
     private static class Ins {
-        static final ${rule.clssName} sInstance = new Sp();
+        static final ${rule.clssName} sInstance = new ${rule.clssName}();
     }
 
     public static ${rule.clssName} getInstance() {
@@ -24,6 +26,13 @@ public class ${rule.clssName} {
     }
 
     public final static String SETTING_NAME = "${rule.settingName}";
+
+    public interface Keys {
+    <#list rule.entities as entity>
+        /** <#if entity.comment??>${entity.comment}<#else>${entity.key}</#if>  */
+        String ${entity.constName?upper_case} = "${entity.key}";
+    </#list>
+    }
 
     private SharedPreferences mPreferences;
 
@@ -35,18 +44,31 @@ public class ${rule.clssName} {
         mPreferences = context.getSharedPreferences(SETTING_NAME, Context.MODE_PRIVATE);
     }
 
-    public void setA(boolean a) {
-        mPreferences.edit()
-                .putBoolean("key", a)
-                .apply();
+<#list rule.entities as entity>
+    /**
+     * <#if entity.comment??>Set ${entity.comment}<#else>Set ${entity.key}</#if>
+     */
+    public void set${entity.paramName?cap_first}(${entity.typeName} ${entity.paramName}) {
+        mPreferences.edit().put${entity.typeMethodName?cap_first}("${entity.key}", ${entity.paramName})
+                            .apply();
     }
 
-    public boolean isA() {
-        return mPreferences.getBoolean("key", false);
-    }
-
+    <#if entity.type != 3>
+    /**
+     * <#if entity.comment??>${entity.comment}<#else>Get ${entity.key}</#if>
+     */
+    <#if entity.type == 6>
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public void setB(Set<String> b){
-        mPreferences.edit().putStringSet("key", b).apply();
+    </#if>
+    public ${entity.typeName} get${entity.paramName?cap_first}() {
+    <#else>
+    /**
+     * <#if entity.comment??>${entity.comment}<#else>Get ${entity.key}</#if>
+     */
+    public ${entity.typeName} is${entity.paramName?cap_first}() {
+    </#if>
+        return mPreferences.get${entity.typeMethodName?cap_first}("${entity.key}", ${entity.defValue?string});
     }
+
+</#list>
 }

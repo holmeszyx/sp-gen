@@ -6,6 +6,7 @@ import freemarker.template.Template;
 import java.io.*;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 生成
@@ -13,23 +14,32 @@ import java.util.List;
  */
 public class SpGenerator {
 
+    private Template mTemplateMaster;
     private Template mTemplateSp;
 
     public SpGenerator() throws IOException {
         Configuration config = new Configuration(Configuration.VERSION_2_3_23);
         config.setClassForTemplateLoading(this.getClass(), "/");
-        //config.setDirectoryForTemplateLoading(new File("/home/holmes/IdeaProjects/spgen/src/main/resources"));
 
         mTemplateSp = config.getTemplate("sp.ftl");
+        mTemplateMaster = config.getTemplate("master.ftl");
 
     }
 
     public void generateAll(Schema schema, String pathDir) {
+        File outDir = new File(pathDir);
 
-        List<Rule> rules = schema.getRules();
+        List<Rule> ruleList = schema.getRules();
+
+        HashMap<String, Object> root = new HashMap<String, Object>(16);
+        root.put("schema", schema);
+        root.put("rules", ruleList);
+        generate(schema, mTemplateMaster, root, outDir, "SpMaster");
+
+
+        List<Rule> rules = ruleList;
         for (Rule rule : rules) {
             List<Entity> entities = rule.getEntities();
-            File outDir = new File(pathDir);
             generate(schema, mTemplateSp, rule, entities, outDir);
         }
 
@@ -65,6 +75,25 @@ public class SpGenerator {
         }
 
 
+    }
+
+    private void generate(Schema schema, Template template, Map<?, ?> rootObj, File outDir, String className) {
+
+        File outFile = toJavaFilename(outDir, schema.getSpPackage(), className);
+        outFile.getParentFile().mkdirs();
+
+        try {
+            Writer outWriter = new FileWriter(outFile);
+            try {
+                template.process(rootObj, outWriter);
+                outWriter.flush();
+                System.out.println("create file " + outFile.getName());
+            } finally {
+                outWriter.close();
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 

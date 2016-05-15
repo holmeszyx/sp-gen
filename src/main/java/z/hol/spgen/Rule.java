@@ -13,6 +13,7 @@ public class Rule {
     public String settingName;
 
     private List<Entity> mEntities;
+    private String mComment;
 
     public Rule(String clssName, String settingName) {
         this.clssName = clssName;
@@ -36,5 +37,14 @@ public class Rule {
 
     public List<Entity> getEntities() {
         return mEntities;
+    }
+
+    public String getComment() {
+        return mComment;
+    }
+
+    public Rule setComment(String comment) {
+        mComment = comment;
+        return this;
     }
 }

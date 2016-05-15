@@ -9,13 +9,29 @@ public class TestMain {
 
     public static void main(String[] args) throws IOException {
         Schema schema = new Schema("a.z.g", 1);
-        Rule r = schema.addRule("GoSp", "go_sp");
-        r.addEntity("key1").asInt();
-        r.addEntity("key2_a").asString();
-        r.addEntity("key3_b").asBoolean();
+        Rule r = schema.addRule("User", "user_setting");
+        r.setComment("用户设置");
+        r.addEntity("count").asInt().defaultValue(-1).setComment("刷新次数");
+        r.addEntity("tokens").asString().setComment("login token");
+        r.addEntity("name").asString().defaultValue("");
+        r.addEntity("need_refresh").asBoolean().defaultValue(true);
+        r.addEntity("avatar_url").asBoolean();
+        r.addEntity("tags").asStringSet();
+
+        Rule r2 = schema.addRule("Setting", "app_setting");
+        r2.setComment("应用设置");
+        r2.addEntity("is_first_launch").asBoolean().defaultValue(false);
+        r2.addEntity("last_login_timestamp").asLong();
 
         SpGenerator generator = new SpGenerator();
         generator.generateAll(schema, "src-gen/");
+
+        Schema yue = new Schema("fm.yue.android.setting", 1);
+        Rule yueR = yue.addRule("Setting", "yue_setting");
+        yueR.addEntity("token").asString().setComment("登录后的token");
+        yueR.addEntity("user_id").asLong().defaultValue(-1L).setComment("用户id， -1就是没有登录");
+        generator.generateAll(yue, "src-gen/");
+
 
     }
 
