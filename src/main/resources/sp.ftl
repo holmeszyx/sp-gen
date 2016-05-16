@@ -1,3 +1,5 @@
+<#setting datetime_format="MM/dd/yyyy HH:mm:ss">
+<#assign createTime = .now>
 package ${schema.spPackage};
 
 import android.content.Context;
@@ -9,9 +11,10 @@ import android.os.Build;
 import java.util.Set;
 </#if>
 
+// Not recommended to manually modify.
 /**
  * <#if rule.comment??>${rule.comment}<#else>${rule.clssName}</#if>
- * Auto created by SpGenerator.
+ * Auto created by SpGenerator. On ${createTime?datetime}
  */
 public class ${rule.clssName} {
 
