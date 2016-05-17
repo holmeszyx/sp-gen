@@ -30,6 +30,9 @@ public class TestMain {
         Rule yueR = yue.addRule("Setting", "yue_setting");
         yueR.addEntity("token").asString().setComment("登录后的token");
         yueR.addEntity("user_id").asLong().defaultValue(-1L).setComment("用户id， -1就是没有登录");
+        yueR.addEntity("user_name").asString().setComment("登录了的用户名");
+        yueR.addEntity("user_avatar").asString().setComment("登录后的用户头像");
+        yueR.addEntity("night_mode").asBoolean().defaultValue(false).setComment("是否使用夜间模式");
         generator.generateAll(yue, "src-gen/");
 
 
