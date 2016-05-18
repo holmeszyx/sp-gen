@@ -29,6 +29,7 @@ public class TestMain {
         Schema yue = new Schema("fm.yue.android.setting", 1);
         Rule yueR = yue.addRule("Setting", "yue_setting");
         yueR.addEntity("token").asString().setComment("登录后的token");
+        yueR.addEntity("token_refreshed").asLong().setComment("token刷新的时间戳");
         yueR.addEntity("user_id").asLong().defaultValue(-1L).setComment("用户id， -1就是没有登录");
         yueR.addEntity("user_name").asString().setComment("登录了的用户名");
         yueR.addEntity("user_avatar").asString().setComment("登录后的用户头像");
