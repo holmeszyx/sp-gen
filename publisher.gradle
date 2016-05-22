@@ -1,0 +1,71 @@
+
+apply plugin: 'com.jfrog.bintray'
+
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'sp-gen'
+    publishedGroupId = 'z.hol.spgen'
+    libraryName = 'sp-gen'
+    artifact = 'sp-gen'
+    libraryDescription = 'The code generator for shared preference in Android. '
+    siteUrl = 'https://github.com/holmeszyx/sp-gen'
+    gitUrl = 'git@github.com:holmeszyx/sp-gen.git'
+    libraryVersion = '1.0.0'
+    developerId = 'holmeszyx'
+    developerName = 'holmes zhang'
+    developerEmail = 'holmeszyx@gmail.com'
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+jar {
+    archiveName artifact+"-"+version+".jar"
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives jar
+    archives javadocJar
+    archives sourcesJar
+}
+
+
+// Bintray
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+
+    configurations = ['archives']
+    pkg {
+        repo = bintrayRepo
+        name = bintrayName
+        desc = libraryDescription
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = allLicenses
+        publish = true
+        publicDownloadNumbers = true
+        version {
+            desc = libraryDescription
+            gpg {
+                sign = true //Determines whether to GPG sign the files. The default is false
+                passphrase = properties.getProperty("bintray.gpg.password")
+                //Optional. The passphrase for GPG signing'
+            }
+        }
+    }
+}

@@ -33,6 +33,7 @@ public class TestMain {
         yueR.addEntity("user_id").asLong().defaultValue(-1L).setComment("用户id， -1就是没有登录");
         yueR.addEntity("user_name").asString().setComment("登录了的用户名");
         yueR.addEntity("user_avatar").asString().setComment("登录后的用户头像");
+        yueR.addEntity("last_user_profile").asString().setComment("最后一次用户的信息json");
         yueR.addEntity("night_mode").asBoolean().defaultValue(false).setComment("是否使用夜间模式");
         generator.generateAll(yue, "src-gen/");
 

@@ -18,3 +18,5 @@ gradle/
 src-gen/
 build/
 out/
+gradle.properties
+local.properties
