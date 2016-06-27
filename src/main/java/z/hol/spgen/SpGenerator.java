@@ -26,6 +26,11 @@ public class SpGenerator {
 
     }
 
+    /**
+     * 生成代码
+     * @param schema 规则集
+     * @param pathDir 代码目录
+     */
     public void generateAll(Schema schema, String pathDir) {
         File outDir = new File(pathDir);
 

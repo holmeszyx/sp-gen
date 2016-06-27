@@ -1,3 +1,11 @@
+allprojects {
+    repositories {
+        jcenter()
+    }
+    apply plugin: 'maven'
+    apply plugin: 'maven-publish'
+}
+
 
 apply plugin: 'com.jfrog.bintray'
 
@@ -40,6 +48,16 @@ artifacts {
     archives sourcesJar
 }
 
+publishing {
+    publications {
+        MyPublication(MavenPublication) {
+            from components.java
+            groupId publishedGroupId
+            artifactId artifact
+            version '1.0.0'
+        }
+    }
+}
 
 // Bintray
 Properties properties = new Properties()
@@ -49,7 +67,7 @@ bintray {
     user = properties.getProperty("bintray.user")
     key = properties.getProperty("bintray.apikey")
 
-    configurations = ['archives']
+    publications = ['MyPublication']
     pkg {
         repo = bintrayRepo
         name = bintrayName
@@ -60,12 +78,9 @@ bintray {
         publish = true
         publicDownloadNumbers = true
         version {
+            name = "1.0.0"
+            released = new Date()
             desc = libraryDescription
-            gpg {
-                sign = true //Determines whether to GPG sign the files. The default is false
-                passphrase = properties.getProperty("bintray.gpg.password")
-                //Optional. The passphrase for GPG signing'
-            }
         }
     }
 }

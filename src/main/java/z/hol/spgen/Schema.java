@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 整体的一次生成
+ * 一组SharedPreferences的集合.
+ * 对应一个或多个 Rule
  * Created by holmes on 16-5-13.
  */
 public class Schema {
@@ -15,6 +16,11 @@ public class Schema {
     private List<Rule> mRules;
     private String mRuleClassSuffix;
 
+    /**
+     * 组
+     * @param spPackage 组所用的包名
+     * @param version 版本
+     */
     public Schema(String spPackage, int version) {
         mSpPackage = spPackage;
         mVersion = version;

@@ -1,0 +1,21 @@
+
+apply plugin: 'java'
+apply plugin:'application'
+
+
+sourceCompatibility = 1.5
+
+repositories {
+    jcenter()
+    maven {
+        url "https://dl.bintray.com/holmeszyx/maven/"
+    }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile 'z.hol.spgen:sp-gen:1.0.0'
+}
+
+mainClassName = "z.hol.spgen.example.GenExample"
+

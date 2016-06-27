@@ -1,2 +1,3 @@
 rootProject.name = 'sp-gen'
+include 'example'
 
