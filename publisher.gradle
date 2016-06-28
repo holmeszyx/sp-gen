@@ -19,7 +19,7 @@ ext {
     libraryDescription = 'The code generator for shared preference in Android. '
     siteUrl = 'https://github.com/holmeszyx/sp-gen'
     gitUrl = 'git@github.com:holmeszyx/sp-gen.git'
-    libraryVersion = '1.0.0'
+    libraryVersion = '1.0.1'
     developerId = 'holmeszyx'
     developerName = 'holmes zhang'
     developerEmail = 'holmeszyx@gmail.com'
@@ -54,7 +54,10 @@ publishing {
             from components.java
             groupId publishedGroupId
             artifactId artifact
-            version '1.0.0'
+            version libraryVersion
+
+            artifact sourcesJar
+            artifact javadocJar
         }
     }
 }
@@ -78,7 +81,7 @@ bintray {
         publish = true
         publicDownloadNumbers = true
         version {
-            name = "1.0.0"
+            name = libraryVersion
             released = new Date()
             desc = libraryDescription
         }

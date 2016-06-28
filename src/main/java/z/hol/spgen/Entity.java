@@ -191,7 +191,13 @@ public class Entity {
     }
 
     public Entity defaultValue(String defValue) {
-        mDefValue = defValue;
+        if (defValue != null) {
+            StringBuilder sb = new StringBuilder(defValue.length() + 3);
+            sb.append("\"");
+            sb.append(defValue);
+            sb.append("\"");
+            mDefValue = sb.toString();
+        }
         return this;
     }
 
