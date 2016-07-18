@@ -15,6 +15,8 @@ public class Rule {
     private List<Entity> mEntities;
     private String mComment;
 
+    private boolean mCanClear = false;
+
     /**
      * SharedPreferences
      * @param clssName 操作SharedPreferences的类(不包括包名)
@@ -52,4 +54,21 @@ public class Rule {
         mComment = comment;
         return this;
     }
+
+    /**
+     * Whether we need to add "clear" method to clear all data saved in sp.
+     * @return false as default;
+     */
+    public boolean isCanClear() {
+        return mCanClear;
+    }
+
+    /**
+     * Whether we need to add "clear" method to clear all data saved in sp.
+     * @param canClear
+     */
+    public void setCanClear(boolean canClear) {
+        mCanClear = canClear;
+    }
+
 }

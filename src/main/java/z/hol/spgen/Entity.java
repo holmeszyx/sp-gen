@@ -8,22 +8,34 @@ import java.util.Set;
  */
 public class Entity {
 
-    /** int */
+    /**
+     * int
+     */
     public static final int INDEX_TYPE_INT = 1;
 
-    /** long */
+    /**
+     * long
+     */
     public static final int INDEX_TYPE_LONG = 2;
 
-    /** boolean */
+    /**
+     * boolean
+     */
     public static final int INDEX_TYPE_BOOLEAN = 3;
 
-    /** float */
+    /**
+     * float
+     */
     public static final int INDEX_TYPE_FLOAT = 4;
 
-    /** string */
+    /**
+     * string
+     */
     public static final int INDEX_TYPE_STRING = 5;
 
-    /** string_set */
+    /**
+     * string_set
+     */
     public static final int INDEX_TYPE_STRING_SET = 6;
 
 
@@ -63,7 +75,7 @@ public class Entity {
             int length = name.length();
             StringBuilder sb = new StringBuilder(length);
             boolean nextCap = false;
-            for (int i = 0; i < length; i ++) {
+            for (int i = 0; i < length; i++) {
                 char c = name.charAt(i);
                 if (c == '_' || c == '-') {
                     nextCap = true;
@@ -85,7 +97,7 @@ public class Entity {
             final String name = mParamName;
             int length = name.length();
             StringBuilder sb = new StringBuilder(length + 8);
-            for (int i = 0; i < length; i ++) {
+            for (int i = 0; i < length; i++) {
                 char c = name.charAt(i);
                 if (c >= 'A' && c <= 'Z') {
                     c = Character.toLowerCase(c);
@@ -168,6 +180,29 @@ public class Entity {
             }
         }
         return mDefValue;
+    }
+
+    /**
+     * the suffix for default values.
+     * Like the "L" in long value "123L".
+     * @return
+     */
+    public String getDefValueSuffix() {
+        switch (mType) {
+            case INDEX_TYPE_BOOLEAN:
+                return null;
+            case INDEX_TYPE_FLOAT:
+                return "F";
+            case INDEX_TYPE_INT:
+                return null;
+            case INDEX_TYPE_LONG:
+                return "L";
+            case INDEX_TYPE_STRING:
+                return null;
+            case INDEX_TYPE_STRING_SET:
+                return null;
+        }
+        return null;
     }
 
     public Entity defaultValue(int defValue) {

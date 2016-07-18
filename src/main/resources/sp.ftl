@@ -12,6 +12,7 @@ import java.util.Set;
 </#if>
 
 // Not recommended to manually modify.
+// see https://github.com/holmeszyx/sp-gen
 /**
  * <#if rule.comment??>${rule.comment}<#else>${rule.clssName}</#if>
  * Auto created by SpGenerator. On ${createTime?datetime}
@@ -56,7 +57,7 @@ public class ${rule.clssName} {
                             .apply();
     }
 
-    <#if entity.type != 3>
+    <#if entity.type != 3><#-- not a boolean value -->
     /**
      * <#if entity.comment??>${entity.comment}<#else>Get ${entity.key}</#if>
      */
@@ -70,8 +71,18 @@ public class ${rule.clssName} {
      */
     public ${entity.typeName} is${entity.paramName?cap_first}() {
     </#if>
-        return mPreferences.get${entity.typeMethodName?cap_first}("${entity.key}", ${entity.defValue?string});
+        return mPreferences.get${entity.typeMethodName?cap_first}("${entity.key}", ${entity.defValue?string}<#if entity.defValueSuffix??>${entity.defValueSuffix}</#if>);
     }
 
 </#list>
+
+<#if rule.canClear>
+    /**
+     * Clear all saved data in Share preference.
+     */
+    public void clear() {
+        mPreferences.edit().clear().apply();
+    }
+</#if>
+
 }

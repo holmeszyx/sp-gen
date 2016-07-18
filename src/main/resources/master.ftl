@@ -8,6 +8,7 @@ import ${schema.spPackage}.${rule.clssName};
 </#list>
 
 // Not recommended to manually modify.
+// see https://github.com/holmeszyx/sp-gen
 /**
  * To init all shared preference generated classes
  * Auto created by SpGenerator. On ${createTime?datetime}

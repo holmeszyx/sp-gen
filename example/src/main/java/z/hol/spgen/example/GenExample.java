@@ -24,9 +24,11 @@ public class GenExample {
         r.addEntity("tags").asStringSet();
 
         Rule r2 = schema.addRule("Setting", "app_setting");
+        r2.setCanClear(true);
         r2.setComment("应用设置");
         r2.addEntity("first_launch").asBoolean().defaultValue(false);
         r2.addEntity("last_login_timestamp").asLong();
+        r2.addEntity("price").asFloat().defaultValue(12.3F);
 
         SpGenerator generator = new SpGenerator();
         generator.generateAll(schema, "src-gen/");
