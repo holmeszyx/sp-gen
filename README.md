@@ -17,7 +17,7 @@ sp-gen 即是 "Shared Preference Generator"。想法来源于GreenDao
 
 加入依赖
 
-`compile 'z.hol.spgen:sp-gen:1.0.1'`
+`compile 'z.hol.spgen:sp-gen:1.0.2'`
 
 引入jcenter仓库
 
@@ -60,6 +60,9 @@ mainClassName = "z.hol.spgen.example.GenExample"
 #### Rule
 一类sp的集合， 用于指定sp操作集合的的类名和存储share preference的(xml)文件名
 
+如果需要添加一个清空此Share preference的接口，在Rule上设置`Rule.setCanClear(true)`.
+这样会生成一个clear方法，用于清空数据。
+
 #### Entity
 一条数据项.用于指定share preference中的一条数据对应的key名称，类型，默认值，相关注释。
 
@@ -85,10 +88,12 @@ public static void main(String[] args) throws IOException {
     r.addEntity("tags").asStringSet();
 
     Rule r2 = schema.addRule("Setting", "app_setting");
+    r2.setCanClear(true);
     r2.setComment("应用设置");
     
     r2.addEntity("first_launch").asBoolean().defaultValue(false);
     r2.addEntity("last_login_timestamp").asLong();
+    r2.addEntity("price").asFloat().defaultValue(12.3F);
 
     SpGenerator generator = new SpGenerator();
     generator.generateAll(schema, "src-gen/");
