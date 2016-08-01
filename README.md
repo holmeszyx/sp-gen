@@ -1,4 +1,4 @@
-sp-gen 即是 "Shared Preference Generator"。想法来源于GreenDao
+sp-gen 即是 "Shared Preference Generator"。想法来源于[GreenDao](https://github.com/greenrobot/greenDAO)
 
 用于生成Android中直接调用Shared preference的代码。
 主要目的:
@@ -17,7 +17,7 @@ sp-gen 即是 "Shared Preference Generator"。想法来源于GreenDao
 
 加入依赖
 
-`compile 'z.hol.spgen:sp-gen:1.0.2'`
+`compile 'z.hol.spgen:sp-gen:1.0.3'`
 
 引入jcenter仓库
 
@@ -42,7 +42,7 @@ repositories {
 }
 
 dependencies {
-    compile 'z.hol.spgen:sp-gen:1.0.1'
+    compile 'z.hol.spgen:sp-gen:1.0.3'
 }
 
 mainClassName = "z.hol.spgen.example.GenExample"
