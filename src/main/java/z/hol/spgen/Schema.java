@@ -49,6 +49,16 @@ public class Schema {
         return mRules;
     }
 
+    /**
+     * Rule class name suffix.
+     * if don't need it, set suffix to null.
+     * notice: If you set suffix to null, you must call it before addRule.
+     * @param ruleClassSuffix
+     */
+    public void setRuleClassSuffix(String ruleClassSuffix) {
+        mRuleClassSuffix = ruleClassSuffix;
+    }
+
     public boolean isUseClassSuffix() {
         return mRuleClassSuffix != null && mRuleClassSuffix.length() > 0;
     }

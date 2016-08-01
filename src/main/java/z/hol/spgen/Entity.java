@@ -50,8 +50,13 @@ public class Entity {
     private String mComment;
     private String mConstName;
 
-    public Entity(String key) {
+    private TextIntercept mParamKeyIntercept;
+    private TextIntercept mConstKeyIntercept;
+
+
+    public Entity(String key, TextIntercept paramKeyIntercept) {
         mKey = key;
+        mParamKeyIntercept = paramKeyIntercept;
         getParamName();
     }
 
@@ -68,44 +73,57 @@ public class Entity {
         return mKey;
     }
 
+    public TextIntercept getParamKeyIntercept() {
+        return mParamKeyIntercept;
+    }
+
+    /**
+     * set the intercept for the param name in getter/setter method
+     * @param paramKeyIntercept
+     */
+    public Entity setParamKeyIntercept(TextIntercept paramKeyIntercept) {
+        if (mParamKeyIntercept != paramKeyIntercept) {
+            mParamKeyIntercept = paramKeyIntercept;
+            mParamName = null;
+            getParamName();
+        }
+        return this;
+    }
+
+    public TextIntercept getConstKeyIntercept() {
+        return mConstKeyIntercept;
+    }
+
+    /**
+     * set the intercept for const name of preference name
+     * @param constKeyIntercept
+     */
+    public Entity setConstKeyIntercept(TextIntercept constKeyIntercept) {
+        mConstKeyIntercept = constKeyIntercept;
+        return this;
+    }
+
     public String getParamName() {
         if (mParamName == null) {
-            // 去掉_以及-, 并将下个字母的小字转大小
-            final String name = mKey;
-            int length = name.length();
-            StringBuilder sb = new StringBuilder(length);
-            boolean nextCap = false;
-            for (int i = 0; i < length; i++) {
-                char c = name.charAt(i);
-                if (c == '_' || c == '-') {
-                    nextCap = true;
-                    continue;
-                }
-                if (sb.length() > 0 && nextCap && c >= 'a' && c <= 'z') {
-                    c = Character.toUpperCase(c);
-                    nextCap = false;
-                }
-                sb.append(c);
+            TextIntercept intercept = mParamKeyIntercept;
+            if (intercept == null) {
+                intercept = ParamNameIntercept.INSTANCE;
             }
-            mParamName = sb.toString();
+            mParamName = intercept.intercept(mKey);
+            if (mParamName == null) {
+                throw new IllegalArgumentException("the return for param name should be not null.");
+            }
         }
         return mParamName;
     }
 
     public String getConstName() {
         if (mConstName == null) {
-            final String name = mParamName;
-            int length = name.length();
-            StringBuilder sb = new StringBuilder(length + 8);
-            for (int i = 0; i < length; i++) {
-                char c = name.charAt(i);
-                if (c >= 'A' && c <= 'Z') {
-                    c = Character.toLowerCase(c);
-                    sb.append("_");
-                }
-                sb.append(c);
+            TextIntercept intercept = mConstKeyIntercept;
+            if (intercept == null) {
+                intercept = ConstNameIntercept.INSTANCE;
             }
-            mConstName = sb.toString();
+            mConstName = intercept.intercept(mParamName);
         }
         return mConstName;
     }

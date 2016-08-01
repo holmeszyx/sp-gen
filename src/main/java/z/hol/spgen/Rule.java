@@ -17,6 +17,9 @@ public class Rule {
 
     private boolean mCanClear = false;
 
+    private TextIntercept mParamKeyIntercept = ParamNameIntercept.INSTANCE;
+    private TextIntercept mConstKeyIntercept = ConstNameIntercept.INSTANCE;
+
     /**
      * SharedPreferences
      * @param clssName 操作SharedPreferences的类(不包括包名)
@@ -29,9 +32,26 @@ public class Rule {
     }
 
     public Entity addEntity(String name) {
-        Entity entity = new Entity(name);
+        Entity entity = new Entity(name, mParamKeyIntercept);
+        entity.setConstKeyIntercept(mConstKeyIntercept);
         mEntities.add(entity);
         return entity;
+    }
+
+    /**
+     * the default parameter intercept for all entity in this rule
+     * @param paramKeyIntercept
+     */
+    public void setParamKeyIntercept(TextIntercept paramKeyIntercept) {
+        mParamKeyIntercept = paramKeyIntercept;
+    }
+
+    /**
+     * the default const intercept for all entity in this rule
+     * @param constKeyIntercept
+     */
+    public void setConstKeyIntercept(TextIntercept constKeyIntercept) {
+        mConstKeyIntercept = constKeyIntercept;
     }
 
     public String getClssName() {
