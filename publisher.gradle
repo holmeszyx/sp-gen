@@ -19,7 +19,7 @@ ext {
     libraryDescription = 'The code generator for shared preference in Android. '
     siteUrl = 'https://github.com/holmeszyx/sp-gen'
     gitUrl = 'git@github.com:holmeszyx/sp-gen.git'
-    libraryVersion = '1.0.3'
+    libraryVersion = '1.0.4'
     developerId = 'holmeszyx'
     developerName = 'holmes zhang'
     developerEmail = 'holmeszyx@gmail.com'

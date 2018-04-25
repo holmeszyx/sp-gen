@@ -13,7 +13,7 @@ public final class ParamNameIntercept implements TextIntercept {
 
     public String intercept(String src) {
         String result;
-        // 去掉_以及-, 并将下个字母的小字转大小
+        // remove '_' and '-', and make next letter to upper case if it is the lower case.
         final String name = src;
         int length = name.length();
         StringBuilder sb = new StringBuilder(length);

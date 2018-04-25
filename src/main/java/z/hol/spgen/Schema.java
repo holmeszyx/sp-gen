@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 一组SharedPreferences的集合.
- * 对应一个或多个 Rule
+ * A set to the defined sharedPreferences which want to be generated.
  * Created by holmes on 16-5-13.
  */
 public class Schema {
@@ -17,9 +16,10 @@ public class Schema {
     private String mRuleClassSuffix;
 
     /**
-     * 组
-     * @param spPackage 组所用的包名
-     * @param version 版本
+     * Like a container of rules
+     *
+     * @param spPackage the package name which all rules under the schema are belong to it
+     * @param version   version code
      */
     public Schema(String spPackage, int version) {
         mSpPackage = spPackage;
@@ -28,7 +28,7 @@ public class Schema {
         mRuleClassSuffix = "Sp";
     }
 
-    public Rule addRule(String clssName, String settingName){
+    public Rule addRule(String clssName, String settingName) {
         if (isUseClassSuffix() && !clssName.endsWith(mRuleClassSuffix)) {
             clssName = clssName + mRuleClassSuffix;
         }
@@ -53,7 +53,8 @@ public class Schema {
      * Rule class name suffix.
      * if don't need it, set suffix to null.
      * notice: If you set suffix to null, you must call it before addRule.
-     * @param ruleClassSuffix
+     *
+     * @param ruleClassSuffix The suffix of each generated rule class
      */
     public void setRuleClassSuffix(String ruleClassSuffix) {
         mRuleClassSuffix = ruleClassSuffix;

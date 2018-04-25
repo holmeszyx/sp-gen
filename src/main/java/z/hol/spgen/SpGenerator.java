@@ -6,30 +6,36 @@ import freemarker.template.Template;
 import java.io.*;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
- * 生成
+ * code generator
  * Created by holmes on 5/13/16.
  */
 public class SpGenerator {
 
+    private String mEncoding = "UTF-8";
     private Template mTemplateMaster;
     private Template mTemplateSp;
 
     public SpGenerator() throws IOException {
         Configuration config = new Configuration(Configuration.VERSION_2_3_23);
         config.setClassForTemplateLoading(this.getClass(), "/");
+        config.setEncoding(Locale.getDefault(), mEncoding);
 
-        mTemplateSp = config.getTemplate("sp.ftl");
-        mTemplateMaster = config.getTemplate("master.ftl");
+        mTemplateSp = config.getTemplate("sp.ftl", mEncoding);
+        mTemplateSp.setOutputEncoding(mEncoding);
+        mTemplateMaster = config.getTemplate("master.ftl", mEncoding);
+        mTemplateMaster.setOutputEncoding(mEncoding);
 
     }
 
     /**
-     * 生成代码
-     * @param schema 规则集
-     * @param pathDir 代码目录
+     * Generate all code by the schema
+     *
+     * @param schema  scheme
+     * @param pathDir which folder that the generated code save in
      */
     public void generateAll(Schema schema, String pathDir) {
         File outDir = new File(pathDir);
@@ -75,7 +81,7 @@ public class SpGenerator {
             } finally {
                 outWriter.close();
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -96,7 +102,7 @@ public class SpGenerator {
             } finally {
                 outWriter.close();
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

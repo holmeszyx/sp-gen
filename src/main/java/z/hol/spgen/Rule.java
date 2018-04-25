@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * SharedPreferences规则, 对应一个配置文件
+ * SharedPreferences Rule, each one map to a config file.
  * Created by holmes on 16-5-13.
  */
 public class Rule {
@@ -22,8 +22,9 @@ public class Rule {
 
     /**
      * SharedPreferences
-     * @param clssName 操作SharedPreferences的类(不包括包名)
-     * @param settingName SharedPreferences的文件名
+     *
+     * @param clssName    the class name for the controller of SharedPreferences (exclude package name)
+     * @param settingName the file name to save SharedPreferences
      */
     public Rule(String clssName, String settingName) {
         this.clssName = clssName;
@@ -40,7 +41,6 @@ public class Rule {
 
     /**
      * the default parameter intercept for all entity in this rule
-     * @param paramKeyIntercept
      */
     public void setParamKeyIntercept(TextIntercept paramKeyIntercept) {
         mParamKeyIntercept = paramKeyIntercept;
@@ -48,7 +48,6 @@ public class Rule {
 
     /**
      * the default const intercept for all entity in this rule
-     * @param constKeyIntercept
      */
     public void setConstKeyIntercept(TextIntercept constKeyIntercept) {
         mConstKeyIntercept = constKeyIntercept;
@@ -77,6 +76,7 @@ public class Rule {
 
     /**
      * Whether we need to add "clear" method to clear all data saved in sp.
+     *
      * @return false as default;
      */
     public boolean isCanClear() {
@@ -85,7 +85,6 @@ public class Rule {
 
     /**
      * Whether we need to add "clear" method to clear all data saved in sp.
-     * @param canClear
      */
     public void setCanClear(boolean canClear) {
         mCanClear = canClear;

@@ -3,7 +3,7 @@ package z.hol.spgen;
 import java.util.Set;
 
 /**
- * 一条配置信息
+ * One config item
  * Created by holmes on 16-5-13.
  */
 public class Entity {
@@ -79,7 +79,6 @@ public class Entity {
 
     /**
      * set the intercept for the param name in getter/setter method
-     * @param paramKeyIntercept
      */
     public Entity setParamKeyIntercept(TextIntercept paramKeyIntercept) {
         if (mParamKeyIntercept != paramKeyIntercept) {
@@ -96,7 +95,6 @@ public class Entity {
 
     /**
      * set the intercept for const name of preference name
-     * @param constKeyIntercept
      */
     public Entity setConstKeyIntercept(TextIntercept constKeyIntercept) {
         mConstKeyIntercept = constKeyIntercept;
@@ -203,7 +201,6 @@ public class Entity {
     /**
      * the suffix for default values.
      * Like the "L" in long value "123L".
-     * @return
      */
     public String getDefValueSuffix() {
         switch (mType) {

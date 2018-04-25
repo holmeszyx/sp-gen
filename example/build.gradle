@@ -11,8 +11,8 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
-//    compile rootProject
-    compile 'z.hol.spgen:sp-gen:1.0.3'
+    compile rootProject
+//    compile 'z.hol.spgen:sp-gen:1.0.3'
 }
 
 mainClassName = "z.hol.spgen.example.GenExample"

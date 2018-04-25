@@ -1,3 +1,4 @@
+<#ftl encoding='UTF-8'>
 <#setting datetime_format="MM/dd/yyyy HH:mm:ss">
 <#assign createTime = .now>
 package ${schema.spPackage};
@@ -7,10 +8,10 @@ import android.content.Context;
 import ${schema.spPackage}.${rule.clssName};
 </#list>
 
-// Not recommended to manually modify.
+// Not recommended to modify manually.
 // see https://github.com/holmeszyx/sp-gen
 /**
- * To init all shared preference generated classes
+ * To initialize all shared preference generated classes
  * Auto created by SpGenerator. On ${createTime?datetime}
  */
 public final class SpMaster {
@@ -18,7 +19,7 @@ public final class SpMaster {
     public static final int VERSION = ${schema.version};
 
     /**
-     * init all.
+     * initialize all.
      * Call it on Application's "onCreate()"
      */
     public static void init(Context context) {

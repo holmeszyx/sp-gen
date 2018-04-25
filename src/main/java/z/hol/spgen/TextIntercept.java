@@ -8,8 +8,8 @@ public interface TextIntercept {
 
     /**
      * transforming the text
+     *
      * @param src origin text
-     * @return
      */
     String intercept(String src);
 

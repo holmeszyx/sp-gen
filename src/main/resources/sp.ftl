@@ -1,3 +1,4 @@
+<#ftl encoding='UTF-8'>
 <#setting datetime_format="MM/dd/yyyy HH:mm:ss">
 <#assign createTime = .now>
 package ${schema.spPackage};
@@ -11,7 +12,7 @@ import android.os.Build;
 import java.util.Set;
 </#if>
 
-// Not recommended to manually modify.
+// Not recommended to modify manually.
 // see https://github.com/holmeszyx/sp-gen
 /**
  * <#if rule.comment??>${rule.comment}<#else>${rule.clssName}</#if>
